@@ -2,10 +2,18 @@
 import { useEffect } from "react";
 import Cart from "../Cart/Cart";
 import { useState } from "react";
+// eslint-disable-next-line no-unused-vars
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
+
 
 const Home = () => {
+
+
   //Store Data
   const [allCourses, setAllcourses] = useState([]);
+  const [selectCourses, setSelectCourses] = useState([]);
 
   // Data Load
   useEffect(() => {
@@ -13,25 +21,34 @@ const Home = () => {
       .then((res) => res.json())
       .then((data) => setAllcourses(data));
   }, []);
-  //   console.log(allCourses)
+
+  //handle course name
+  const handleSelectCourse = (course) => {
+    // console.log(course)
+    const isExist = selectCourses.find((item) => item.id === course.id);
+    if (isExist) {
+      toast.warning('Course is already booked')
+    } else {
+      setSelectCourses([...selectCourses, course]);
+    }
+  };
 
   return (
     <div>
+        {/* Toast Container */}
+        <ToastContainer position="top-center"></ToastContainer>
       {/* home container */}
-      <div className="flex ">
+      <div className="flex">
         {/* Card-container */}
-        <div className="w-2/4 m-5 flex flex-wrap gap-5 mx-auto">
+        <div className="w-2/4 m-5 grid grid-cols-3 gap-5 mx-auto">
           {allCourses.map((course) => (
-            <div key={course.id} className="w-[300px] h-[420px] bg-white p-4 rounded-xl">
+            <div
+              key={course.id}
+              className="w-[300px] h-[420px] bg-white p-4 rounded-xl"
+            >
               <>
-                <img
-                  className="mb-4"
-                  src={course.cover_image}
-                  alt=""
-                />
-                <h1 className="font-bold mb-3 ">
-                  {course.course_name}
-                </h1>
+                <img className="mb-4" src={course.cover_image} alt="" />
+                <h1 className="font-bold mb-3 ">{course.course_name}</h1>
                 <p className="text-sm text-[#1C1B1B99]">
                   {course.course_details}
                 </p>
@@ -53,7 +70,10 @@ const Home = () => {
                   </div>
                 </>
               </div>
-              <button className="mt-5 bg-[#2F80ED] text-white w-[268px] h-[40px] rounded-lg font-semibold">
+              <button
+                onClick={() => handleSelectCourse(course)}
+                className="mt-5 bg-[#2F80ED] text-white w-[268px] h-[40px] rounded-lg font-semibold"
+              >
                 Select
               </button>
             </div>
@@ -61,7 +81,7 @@ const Home = () => {
         </div>
 
         {/* Cart Portion */}
-        <Cart></Cart>
+        <Cart selectCourses={selectCourses}></Cart>
       </div>
     </div>
   );
