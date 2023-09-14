@@ -3,14 +3,10 @@ import { useEffect } from "react";
 import Cart from "../Cart/Cart";
 import { useState } from "react";
 // eslint-disable-next-line no-unused-vars
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
-
 const Home = () => {
-
-
   //Store Data
   const [allCourses, setAllcourses] = useState([]);
   const [selectCourses, setSelectCourses] = useState([]);
@@ -29,20 +25,22 @@ const Home = () => {
     const isExist = selectCourses.find((item) => item.id === course.id);
     let count = course.credit_number;
     if (isExist) {
-      toast.warning('Course is already booked')
+      toast.warning("Course is already booked");
     } else {
+      selectCourses.forEach((item) => (count = count + item.credit_number));
       setSelectCourses([...selectCourses, course]);
-      
-      selectCourses.forEach(item => (count = count + item.credit_number));
-      setTotalCredit(count)
-      
+    }
+    if (count > 20) {
+      toast.warning("No more courses can be added");
+    } else {
+      setTotalCredit(count);
     }
   };
 
   return (
     <div>
-        {/* Toast Container */}
-        <ToastContainer position="top-center" theme="dark"></ToastContainer>
+      {/* Toast Container */}
+      <ToastContainer position="top-center" theme="dark"></ToastContainer>
       {/* home container */}
       <div className="flex">
         {/* Card-container */}
