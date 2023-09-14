@@ -34,14 +34,26 @@ const Home = () => {
       selectCourses.forEach(item2 => (price = price + item2.price))
     }
     const remainingCredit = 20 - count;
-    if (remainingCredit < 0 && count > 20) {
-      toast.warning("No more course can be added, Credit hour limit crossed");
-    } else {
-      setTotalCredit(count)
-      setCreditRemaining(remainingCredit);
-      setTotalPrice(price);
-      setSelectCourses([...selectCourses, course]);
+    // if (remainingCredit < 0 && count > 20) {
+    //   toast.warning("No more course can be added, Credit hour limit crossed");
+    // } else {
+    //   setTotalCredit(count)
+    //   setCreditRemaining(remainingCredit);
+    //   setTotalPrice(price);
+    //   setSelectCourses([...selectCourses, course]);
+    // }
+    if(remainingCredit < 0){
+        toast.warning("Credit hour limit crossed");
+    }else{
+        setCreditRemaining(remainingCredit);
     }
+    if(count > 20){
+        toast.warning("No more course can be added");
+    }else {
+          setTotalCredit(count)
+          setTotalPrice(price);
+          setSelectCourses([...selectCourses, course]);
+        }
   };
 
   return (
@@ -49,13 +61,13 @@ const Home = () => {
       {/* Toast Container */}
       <ToastContainer position="top-center" theme="dark"></ToastContainer>
       {/* home container */}
-      <div className="flex">
+      <div className="flex flex-col md:flex-row md:w-[1500px] mx-auto">
         {/* Card-container */}
-        <div className="w-2/4 m-5 grid grid-cols-3 gap-5 mx-auto">
+        <div className="w-full md:w-[1000px] m-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto">
           {allCourses.map((course) => (
             <div
               key={course.id}
-              className="w-[300px] h-[420px] bg-white p-4 rounded-xl"
+              className="w-[300px] h-[420px] bg-white ml-[80px] md:ml-[30px] lg:ml-0 p-4 rounded-xl"
             >
               <>
                 <img className="mb-4" src={course.cover_image} alt="" />

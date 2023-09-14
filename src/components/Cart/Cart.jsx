@@ -1,24 +1,24 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
-const Cart = ({ selectCourses,totalCredit, creditRemaining,totalPrice }) => {
+const Cart = ({ selectCourses, totalCredit, creditRemaining, totalPrice }) => {
   console.log(selectCourses);
   return (
-    <div className="w-1/4 bg-white mx-auto rounded-xl h-[500px] mt-4">
+    <div className=" w-3/3 md:w-1/2 lg:w-1/3 xl:w-1/4 mx-auto mt-4">
       {" "}
-      <div className=" p-8">
-        <h1 className="font-semibold text-[#2F80ED] text-lg mb-[16px]">
+      <div className=" md:p-4 p-8 bg-white rounded-xl ml-[30px] md:ml-0 lg:ml-0 mb-[40px]">
+        <h1 className="font-semibold text-[#2F80ED] md:text-xl text-lg md:mb-4 mb-8">
           Credit Hour Remaining {creditRemaining} hr
         </h1>
         <hr className="mb-[16px]" />
-        <p className="font-semibold text-xl mb-[16px]">Course Name</p>
+        <p className="font-semibold md:text-lg text-base md:mb-4 mb-8">Course Name</p>
         {selectCourses.map((course, index) => (
-          <ol className="text-sm text-[#1C1B1B99] mb-[8px]" key={course.id}>
+          <ol className="md:text-base text-sm text-[#1C1B1B99] md:mb-2 mb-4" key={course.id}>
             <li>
               {index + 1} {course.course_name}
             </li>
           </ol>
         ))}
-        <hr className="mb-[16px] mt-[20px]" />
+        <hr className="mb-4 md:mt-4 mt-8" />
         <h1 className="mb-[16px]">Total Credit Hour : {totalCredit}</h1>
         <hr className="mb-[16px]" />
         <h1>Total Price : {totalPrice} USD</h1>
