@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
-const Cart = ({ selectCourses }) => {
+const Cart = ({ selectCourses,totalCredit }) => {
   console.log(selectCourses);
   return (
     <div className="w-1/4 bg-white mx-auto rounded-xl h-[500px] mt-4">
@@ -19,7 +19,7 @@ const Cart = ({ selectCourses }) => {
           </ol>
         ))}
         <hr className="mb-[16px] mt-[20px]" />
-        <h1 className="mb-[16px]">Total Credit Hour : 13</h1>
+        <h1 className="mb-[16px]">Total Credit Hour : {totalCredit}</h1>
         <hr className="mb-[16px]" />
         <h1>Total Price : 48000 USD</h1>
       </div>

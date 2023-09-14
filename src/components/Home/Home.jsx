@@ -14,6 +14,7 @@ const Home = () => {
   //Store Data
   const [allCourses, setAllcourses] = useState([]);
   const [selectCourses, setSelectCourses] = useState([]);
+  const [totalCredit, setTotalCredit] = useState(0);
 
   // Data Load
   useEffect(() => {
@@ -26,17 +27,22 @@ const Home = () => {
   const handleSelectCourse = (course) => {
     // console.log(course)
     const isExist = selectCourses.find((item) => item.id === course.id);
+    let count = course.credit_number;
     if (isExist) {
       toast.warning('Course is already booked')
     } else {
       setSelectCourses([...selectCourses, course]);
+      
+      selectCourses.forEach(item => (count = count + item.credit_number));
+      setTotalCredit(count)
+      
     }
   };
 
   return (
     <div>
         {/* Toast Container */}
-        <ToastContainer position="top-center"></ToastContainer>
+        <ToastContainer position="top-center" theme="dark"></ToastContainer>
       {/* home container */}
       <div className="flex">
         {/* Card-container */}
@@ -81,7 +87,7 @@ const Home = () => {
         </div>
 
         {/* Cart Portion */}
-        <Cart selectCourses={selectCourses}></Cart>
+        <Cart selectCourses={selectCourses} totalCredit={totalCredit}></Cart>
       </div>
     </div>
   );
