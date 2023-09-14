@@ -11,6 +11,7 @@ const Home = () => {
   const [allCourses, setAllcourses] = useState([]);
   const [selectCourses, setSelectCourses] = useState([]);
   const [totalCredit, setTotalCredit] = useState(0);
+  const [creditRemaining, setCreditRemaining] = useState(0);
 
   // Data Load
   useEffect(() => {
@@ -25,15 +26,17 @@ const Home = () => {
     const isExist = selectCourses.find((item) => item.id === course.id);
     let count = course.credit_number;
     if (isExist) {
-      toast.warning("Course is already booked");
+      return toast.warning("Course is already booked");
     } else {
       selectCourses.forEach((item) => (count = count + item.credit_number));
-      setSelectCourses([...selectCourses, course]);
     }
-    if (count > 20) {
-      toast.warning("No more courses can be added");
+    const remainingCredit = 20 - count;
+    if (remainingCredit < 0 && count > 20) {
+      toast.warning("No more course can be added, Credit hour limit crossed");
     } else {
-      setTotalCredit(count);
+        setTotalCredit(count)
+      setCreditRemaining(remainingCredit);
+      setSelectCourses([...selectCourses, course]);
     }
   };
 
@@ -85,7 +88,11 @@ const Home = () => {
         </div>
 
         {/* Cart Portion */}
-        <Cart selectCourses={selectCourses} totalCredit={totalCredit}></Cart>
+        <Cart
+          selectCourses={selectCourses}
+          totalCredit={totalCredit}
+          creditRemaining={creditRemaining}
+        ></Cart>
       </div>
     </div>
   );

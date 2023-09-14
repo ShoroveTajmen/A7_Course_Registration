@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
-const Cart = ({ selectCourses,totalCredit }) => {
+const Cart = ({ selectCourses,totalCredit, creditRemaining }) => {
   console.log(selectCourses);
   return (
     <div className="w-1/4 bg-white mx-auto rounded-xl h-[500px] mt-4">
       {" "}
       <div className=" p-8">
         <h1 className="font-semibold text-[#2F80ED] text-lg mb-[16px]">
-          Credit Hour Remaining 7 hr
+          Credit Hour Remaining {creditRemaining} hr
         </h1>
         <hr className="mb-[16px]" />
         <p className="font-semibold text-xl mb-[16px]">Course Name</p>
