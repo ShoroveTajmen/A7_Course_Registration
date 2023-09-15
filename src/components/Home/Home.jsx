@@ -11,7 +11,7 @@ const Home = () => {
   const [allCourses, setAllcourses] = useState([]);
   const [selectCourses, setSelectCourses] = useState([]);
   const [totalCredit, setTotalCredit] = useState(0);
-  const [creditRemaining, setCreditRemaining] = useState(0);
+  const [creditRemaining, setCreditRemaining] = useState(20);
   const [totalPrice, setTotalPrice] = useState(0);
 
   // Data Load
